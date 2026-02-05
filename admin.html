@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Portfolio | Admin Panel</title>
     <link rel="stylesheet" href="styles.css" />
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   </head>
   <body>
     <header class="top-bar">
@@ -15,31 +16,45 @@
       </nav>
     </header>
 
-    <main class="layout admin-layout">
-      <section class="card full-width" id="login-card">
-        <h2>Admin Login</h2>
-        <p class="help-text">Default credentials: <strong>admin / admin123</strong></p>
-        <form id="login-form" class="form-grid compact">
-          <label>
-            Username
-            <input type="text" id="login-username" required />
-          </label>
-          <label>
-            Password
-            <input type="password" id="login-password" required />
+    <main class="layout">
+      <section class="card full-width" id="auth-card">
+        <div class="auth-grid">
+          <div>
+            <h2>Secure Admin Access</h2>
+            <p class="help-text">
+              Admin panel is locked behind <strong>Google Sign-In</strong>. Only the configured admin Gmail can view the editor.
+            </p>
+            <p class="help-text small">Set your Firebase keys in <code>firebase-auth.js</code> and set <code>ADMIN_EMAIL</code>.</p>
+            <div class="actions">
+              <button type="button" id="google-signin" class="button">Sign in with Google</button>
+              <button type="button" id="logout" class="button secondary">Logout</button>
+            </div>
+          </div>
+          <lottie-player
+            class="auth-animation"
+            src="https://assets2.lottiefiles.com/packages/lf20_sxw84pnl.json"
+            background="transparent"
+            speed="1"
+            loop
+            autoplay
+          ></lottie-player>
+        </div>
+
+        <form id="forgot-form" class="form-grid compact">
+          <label class="full-width">
+            Forgot password? Enter your Gmail to receive reset link
+            <input type="email" id="reset-email" placeholder="your-admin@gmail.com" required />
           </label>
           <div class="full-width actions">
-            <button type="submit" class="button">Login</button>
+            <button type="submit" class="button secondary">Send Reset Link</button>
           </div>
         </form>
-        <p id="login-status" role="status" aria-live="polite"></p>
+
+        <p id="auth-status" role="status" aria-live="polite"></p>
       </section>
 
       <section class="card full-width hidden" id="admin-card">
-        <div class="section-title-row">
-          <h2>Profile</h2>
-          <button type="button" id="logout" class="button secondary">Logout</button>
-        </div>
+        <h2>Portfolio Content Editor</h2>
 
         <form id="admin-form" class="form-grid">
           <label>
@@ -80,12 +95,11 @@
             <button type="button" id="reset-data" class="button danger">Reset to Defaults</button>
           </div>
         </form>
+
         <p id="status" role="status" aria-live="polite"></p>
       </section>
     </main>
 
-    <script src="database.js"></script>
-    <script src="script.js"></script>
-    <script src="admin.js"></script>
+    <script type="module" src="admin.js"></script>
   </body>
 </html>

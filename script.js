@@ -1,62 +1,15 @@
-const STORAGE_KEY = 'portfolioData.v1';
-
-const DEFAULT_DATA = {
-  name: 'Alex Morgan',
-  role: 'Full Stack Developer',
-  about:
-    'I build performant web applications with a strong focus on UX, maintainability, and measurable business impact.',
-  skills: ['JavaScript', 'TypeScript', 'React', 'Node.js', 'SQL', 'UI Design'],
-  contact: 'Email: alex@example.com | LinkedIn: linkedin.com/in/alexmorgan',
-  projects: [
-    {
-      title: 'Analytics Dashboard',
-      description: 'Interactive KPI dashboard with role-based access and real-time charts.',
-    },
-    {
-      title: 'E-commerce Platform',
-      description: 'Scalable storefront with payment integration and custom CMS.',
-    },
-    {
-      title: 'Mobile Banking UI',
-      description: 'Accessible and responsive banking experience optimized for trust and clarity.',
-    },
-    {
-      title: 'Recruitment Portal',
-      description: 'Applicant tracking system with workflow automation and reporting.',
-    },
-  ],
-};
-
-function getPortfolioData() {
-  const raw = localStorage.getItem(STORAGE_KEY);
-  if (!raw) {
-    return structuredClone(DEFAULT_DATA);
-  }
-
-  try {
-    return { ...DEFAULT_DATA, ...JSON.parse(raw) };
-  } catch {
-    return structuredClone(DEFAULT_DATA);
-  }
-}
-
-function savePortfolioData(data) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-}
-
-function resetPortfolioData() {
-  localStorage.removeItem(STORAGE_KEY);
-}
+import { getPortfolioData } from './database.js';
 
 function renderFrontPanel() {
-  const heroSection = document.getElementById('hero-section');
-  if (!heroSection) {
+  const heroName = document.getElementById('hero-name');
+  if (!heroName) {
     return;
   }
 
   const data = getPortfolioData();
 
-  heroSection.innerHTML = `<h2>${data.name}</h2><p>${data.role}</p>`;
+  heroName.textContent = data.name;
+  document.getElementById('hero-role').textContent = data.role;
   document.getElementById('about-text').textContent = data.about;
   document.getElementById('contact-text').textContent = data.contact;
 
@@ -77,12 +30,5 @@ function renderFrontPanel() {
     projectsGrid.appendChild(card);
   });
 }
-
-window.PortfolioStore = {
-  DEFAULT_DATA,
-  getPortfolioData,
-  savePortfolioData,
-  resetPortfolioData,
-};
 
 renderFrontPanel();

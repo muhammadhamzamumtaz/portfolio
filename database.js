@@ -1,144 +1,66 @@
-const DB_KEY = 'portfolioDB.v1';
-const SESSION_KEY = 'portfolioSession.v1';
+const DB_KEY = 'portfolioDB.v2';
 
-const DEFAULT_PORTFOLIO = {
+export const DEFAULT_PORTFOLIO = {
   name: 'Alex Morgan',
-  role: 'Full Stack Developer',
+  role: 'Creative Full Stack Developer',
   about:
-    'I build performant web applications with a strong focus on UX, maintainability, and measurable business impact.',
-  skills: ['JavaScript', 'TypeScript', 'React', 'Node.js', 'SQL', 'UI Design'],
+    'I design and build delightful digital products with performant frontends, clean APIs, and measurable outcomes.',
+  skills: ['JavaScript', 'TypeScript', 'React', 'Node.js', 'PostgreSQL', 'Figma'],
   contact: 'Email: alex@example.com | LinkedIn: linkedin.com/in/alexmorgan',
   projects: [
     {
-      title: 'Analytics Dashboard',
-      description: 'Interactive KPI dashboard with role-based access and real-time charts.',
+      title: 'AI Analytics Hub',
+      description: 'Executive dashboard with real-time metrics, alerts, and role-aware widgets.',
     },
     {
-      title: 'E-commerce Platform',
-      description: 'Scalable storefront with payment integration and custom CMS.',
+      title: 'Fintech Onboarding',
+      description: 'Mobile-first customer onboarding flow with KYC automation and smart validation.',
     },
     {
-      title: 'Mobile Banking UI',
-      description: 'Accessible and responsive banking experience optimized for trust and clarity.',
+      title: 'Creator Storefront',
+      description: 'Content + commerce platform with subscriptions and custom merchandising tools.',
     },
     {
-      title: 'Recruitment Portal',
-      description: 'Applicant tracking system with workflow automation and reporting.',
+      title: 'Talent Match Engine',
+      description: 'Matching portal that ranks candidates using configurable competency scoring.',
     },
   ],
 };
 
-const DEFAULT_DB = {
-  users: [
-    {
-      username: 'admin',
-      password: 'admin123',
-    },
-  ],
-  portfolio: DEFAULT_PORTFOLIO,
-};
-
-function cloneData(data) {
+function clone(data) {
   return JSON.parse(JSON.stringify(data));
 }
 
 function loadDB() {
   const raw = localStorage.getItem(DB_KEY);
   if (!raw) {
-    const initial = cloneData(DEFAULT_DB);
+    const initial = { portfolio: clone(DEFAULT_PORTFOLIO) };
     localStorage.setItem(DB_KEY, JSON.stringify(initial));
     return initial;
   }
 
-  try {
-    const parsed = JSON.parse(raw);
-    return {
-      users: parsed.users?.length ? parsed.users : cloneData(DEFAULT_DB.users),
-      portfolio: { ...cloneData(DEFAULT_PORTFOLIO), ...parsed.portfolio },
-    };
-  } catch {
-    const initial = cloneData(DEFAULT_DB);
-    localStorage.setItem(DB_KEY, JSON.stringify(initial));
-    return initial;
-  }
+  const parsed = JSON.parse(raw);
+  return {
+    portfolio: { ...clone(DEFAULT_PORTFOLIO), ...parsed.portfolio },
+  };
 }
 
 function saveDB(db) {
   localStorage.setItem(DB_KEY, JSON.stringify(db));
 }
 
-function getPortfolioData() {
-  return cloneData(loadDB().portfolio);
+export function getPortfolioData() {
+  return clone(loadDB().portfolio);
 }
 
-function savePortfolioData(portfolio) {
+export function savePortfolioData(portfolio) {
   const db = loadDB();
   db.portfolio = portfolio;
   saveDB(db);
 }
 
-function resetPortfolioData() {
+export function resetPortfolioData() {
   const db = loadDB();
-  db.portfolio = cloneData(DEFAULT_PORTFOLIO);
+  db.portfolio = clone(DEFAULT_PORTFOLIO);
   saveDB(db);
 }
-
-function authenticate(username, password) {
-  const db = loadDB();
-  const matchedUser = db.users.find(
-    (user) => user.username === username && user.password === password,
-  );
-
-  if (!matchedUser) {
-    return false;
-  }
-
-  localStorage.setItem(SESSION_KEY, username);
-  return true;
-}
-
-function isAuthenticated() {
-  return Boolean(localStorage.getItem(SESSION_KEY));
-}
-
-function logout() {
-  localStorage.removeItem(SESSION_KEY);
-}
-
-function getCurrentUser() {
-  return localStorage.getItem(SESSION_KEY);
-}
-
-function updateAdminCredentials(currentPassword, newUsername, newPassword) {
-  const db = loadDB();
-  const currentUsername = getCurrentUser();
-
-  if (!currentUsername) {
-    return { ok: false, message: 'No active session.' };
-  }
-
-  const user = db.users.find((item) => item.username === currentUsername);
-  if (!user || user.password !== currentPassword) {
-    return { ok: false, message: 'Current password is incorrect.' };
-  }
-
-  user.username = newUsername;
-  user.password = newPassword;
-
-  saveDB(db);
-  localStorage.setItem(SESSION_KEY, newUsername);
-  return { ok: true, message: 'Credentials updated successfully.' };
-}
-
-window.PortfolioDB = {
-  DEFAULT_PORTFOLIO,
-  loadDB,
-  getPortfolioData,
-  savePortfolioData,
-  resetPortfolioData,
-  authenticate,
-  isAuthenticated,
-  logout,
-  getCurrentUser,
-  updateAdminCredentials,
-};
