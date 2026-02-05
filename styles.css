@@ -136,10 +136,6 @@ nav a[aria-current='page'] {
   gap: 0.9rem;
 }
 
-.form-grid.compact {
-  grid-template-columns: 1fr 1fr;
-}
-
 label {
   display: flex;
   flex-direction: column;
@@ -199,23 +195,7 @@ textarea {
   gap: 0.65rem;
 }
 
-.help-text {
-  margin-top: 0;
-  color: var(--muted);
-}
-
-.credentials-box {
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-.hidden {
-  display: none;
-}
-
-#status,
-#login-status {
+#status {
   margin: 1rem 0 0;
   color: var(--accent);
 }
@@ -229,7 +209,6 @@ footer {
 @media (max-width: 767px) {
   .layout,
   .form-grid,
-  .form-grid.compact,
   .projects-grid,
   .editor-item {
     grid-template-columns: 1fr;
