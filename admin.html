@@ -16,8 +16,31 @@
     </header>
 
     <main class="layout admin-layout">
-      <section class="card full-width">
-        <h2>Profile</h2>
+      <section class="card full-width" id="login-card">
+        <h2>Admin Login</h2>
+        <p class="help-text">Default credentials: <strong>admin / admin123</strong></p>
+        <form id="login-form" class="form-grid compact">
+          <label>
+            Username
+            <input type="text" id="login-username" required />
+          </label>
+          <label>
+            Password
+            <input type="password" id="login-password" required />
+          </label>
+          <div class="full-width actions">
+            <button type="submit" class="button">Login</button>
+          </div>
+        </form>
+        <p id="login-status" role="status" aria-live="polite"></p>
+      </section>
+
+      <section class="card full-width hidden" id="admin-card">
+        <div class="section-title-row">
+          <h2>Profile</h2>
+          <button type="button" id="logout" class="button secondary">Logout</button>
+        </div>
+
         <form id="admin-form" class="form-grid">
           <label>
             Name
@@ -61,6 +84,7 @@
       </section>
     </main>
 
+    <script src="database.js"></script>
     <script src="script.js"></script>
     <script src="admin.js"></script>
   </body>
