@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio | Front Panel</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+  </head>
+  <body>
+    <header class="top-bar">
+      <h1>Portfolio Front Panel</h1>
+      <nav>
+        <a href="index.html" aria-current="page">Front Panel</a>
+        <a href="admin.html">Admin Panel</a>
+      </nav>
+    </header>
+
+    <main class="layout">
+      <section class="card hero full-width" id="hero-section">
+        <div>
+          <h2 id="hero-name"></h2>
+          <p id="hero-role"></p>
+        </div>
+        <lottie-player
+          class="hero-animation"
+          src="https://assets1.lottiefiles.com/packages/lf20_iorpbol0.json"
+          background="transparent"
+          speed="1"
+          loop
+          autoplay
+        ></lottie-player>
+      </section>
+
+      <section class="card">
+        <h2>About</h2>
+        <p id="about-text"></p>
+      </section>
+
+      <section class="card">
+        <h2>Skills</h2>
+        <ul id="skills-list" class="tag-list"></ul>
+      </section>
+
+      <section class="card full-width">
+        <h2>Projects</h2>
+        <div id="projects-grid" class="projects-grid"></div>
+      </section>
+
+      <section class="card full-width">
+        <h2>Contact</h2>
+        <p id="contact-text"></p>
+      </section>
+    </main>
+
+    <footer>
+      <small>Interactive portfolio powered by local data storage and responsive components.</small>
+    </footer>
+
+    <script type="module" src="script.js"></script>
+  </body>
+</html>
