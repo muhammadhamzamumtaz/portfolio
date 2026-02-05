@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio | Admin Panel</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="top-bar">
+      <h1>Portfolio Admin Panel</h1>
+      <nav>
+        <a href="index.html">Front Panel</a>
+        <a href="admin.html" aria-current="page">Admin Panel</a>
+      </nav>
+    </header>
+
+    <main class="layout admin-layout">
+      <section class="card full-width">
+        <h2>Profile</h2>
+        <form id="admin-form" class="form-grid">
+          <label>
+            Name
+            <input type="text" id="name" required />
+          </label>
+
+          <label>
+            Role
+            <input type="text" id="role" required />
+          </label>
+
+          <label class="full-width">
+            About
+            <textarea id="about" rows="4" required></textarea>
+          </label>
+
+          <label class="full-width">
+            Skills (comma separated)
+            <input type="text" id="skills" required />
+          </label>
+
+          <label class="full-width">
+            Contact
+            <input type="text" id="contact" required />
+          </label>
+
+          <div class="full-width projects-editor">
+            <div class="section-title-row">
+              <h3>Projects</h3>
+              <button type="button" id="add-project" class="button secondary">+ Add Project</button>
+            </div>
+            <div id="projects-editor-list" class="editor-list"></div>
+          </div>
+
+          <div class="full-width actions">
+            <button type="submit" class="button">Save Changes</button>
+            <button type="button" id="reset-data" class="button danger">Reset to Defaults</button>
+          </div>
+        </form>
+        <p id="status" role="status" aria-live="polite"></p>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+    <script src="admin.js"></script>
+  </body>
+</html>
