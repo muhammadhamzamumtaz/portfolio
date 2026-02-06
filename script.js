@@ -21,14 +21,6 @@ function renderFrontPanel() {
     skillsList.appendChild(item);
   });
 
-  const servicesList = document.getElementById('services-list');
-  servicesList.innerHTML = '';
-  data.services.forEach((service) => {
-    const item = document.createElement('li');
-    item.textContent = service;
-    servicesList.appendChild(item);
-  });
-
   const projectsGrid = document.getElementById('projects-grid');
   projectsGrid.innerHTML = '';
   data.projects.forEach((project) => {
@@ -36,15 +28,6 @@ function renderFrontPanel() {
     card.className = 'project-card';
     card.innerHTML = `<h3>${project.title}</h3><p>${project.description}</p>`;
     projectsGrid.appendChild(card);
-  });
-
-  const testimonialsGrid = document.getElementById('testimonials-grid');
-  testimonialsGrid.innerHTML = '';
-  data.testimonials.forEach((item) => {
-    const card = document.createElement('article');
-    card.className = 'project-card';
-    card.innerHTML = `<h3>${item.author}</h3><p>${item.text}</p>`;
-    testimonialsGrid.appendChild(card);
   });
 }
 

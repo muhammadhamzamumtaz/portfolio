@@ -1,4 +1,4 @@
-const DB_KEY = 'portfolioDB.v3';
+const DB_KEY = 'portfolioDB.v2';
 
 export const DEFAULT_PORTFOLIO = {
   name: 'Alex Morgan',
@@ -6,17 +6,6 @@ export const DEFAULT_PORTFOLIO = {
   about:
     'I design and build delightful digital products with performant frontends, clean APIs, and measurable outcomes.',
   skills: ['JavaScript', 'TypeScript', 'React', 'Node.js', 'PostgreSQL', 'Figma'],
-  services: ['Web App Development', 'UI/UX Design', 'API Integration', 'Performance Optimization'],
-  testimonials: [
-    {
-      author: 'Product Manager, FinEdge',
-      text: 'Alex delivered a faster, cleaner platform and improved user conversion significantly.',
-    },
-    {
-      author: 'Founder, CreatorLoop',
-      text: 'Great communication, high quality code, and excellent visual execution.',
-    },
-  ],
   contact: 'Email: alex@example.com | LinkedIn: linkedin.com/in/alexmorgan',
   projects: [
     {
@@ -50,21 +39,10 @@ function loadDB() {
     return initial;
   }
 
-  try {
-    const parsed = JSON.parse(raw);
-    return {
-      portfolio: {
-        ...clone(DEFAULT_PORTFOLIO),
-        ...parsed.portfolio,
-        services: parsed.portfolio?.services || clone(DEFAULT_PORTFOLIO.services),
-        testimonials: parsed.portfolio?.testimonials || clone(DEFAULT_PORTFOLIO.testimonials),
-      },
-    };
-  } catch {
-    const initial = { portfolio: clone(DEFAULT_PORTFOLIO) };
-    localStorage.setItem(DB_KEY, JSON.stringify(initial));
-    return initial;
-  }
+  const parsed = JSON.parse(raw);
+  return {
+    portfolio: { ...clone(DEFAULT_PORTFOLIO), ...parsed.portfolio },
+  };
 }
 
 function saveDB(db) {

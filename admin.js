@@ -54,10 +54,6 @@ function populateForm(data) {
   document.getElementById('role').value = data.role;
   document.getElementById('about').value = data.about;
   document.getElementById('skills').value = data.skills.join(', ');
-  document.getElementById('services').value = data.services.join(', ');
-  document.getElementById('testimonials').value = data.testimonials
-    .map((item) => `${item.author} | ${item.text}`)
-    .join('\n');
   document.getElementById('contact').value = data.contact;
 
   projectsEditorList.innerHTML = '';
@@ -85,24 +81,6 @@ function collectFormData() {
       .value.split(',')
       .map((skill) => skill.trim())
       .filter(Boolean),
-    services: document
-      .getElementById('services')
-      .value.split(',')
-      .map((service) => service.trim())
-      .filter(Boolean),
-    testimonials: document
-      .getElementById('testimonials')
-      .value.split('\n')
-      .map((line) => line.trim())
-      .filter(Boolean)
-      .map((line) => {
-        const [author, ...textParts] = line.split('|');
-        return {
-          author: (author || '').trim(),
-          text: textParts.join('|').trim(),
-        };
-      })
-      .filter((item) => item.author && item.text),
     contact: document.getElementById('contact').value.trim(),
     projects,
   };
